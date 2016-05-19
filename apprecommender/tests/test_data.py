@@ -33,12 +33,13 @@ class AxiSearchTests(unittest.TestCase):
         self.axi = xapian.Database(cfg.axi)
 
     def test_search_pkg_tags(self):
-        tags = axi_search_pkg_tags(self.axi, 'apticron')
-        self.assertEqual(set(tags), set(['XTadmin::package-management',
-                                         'XTnetwork::server',
-                                         'XTrole::program',
-                                         'XTsuite::debian', 'XTuse::monitor',
-                                         'XTworks-with::mail']))
+        assert_tags = set(['XTdevel::compiler', 'XTdevel::lang:c',
+                           'XTinterface::commandline', 'XTrole::metapackage',
+                           'XTrole::program', 'XTsuite::gnu',
+                           'XTworks-with::software:source'])
+
+        tags = axi_search_pkg_tags(self.axi, 'gcc')
+        self.assertEqual(assert_tags, set(tags))
 
 
 class PopconSubmissionTests(unittest.TestCase):
